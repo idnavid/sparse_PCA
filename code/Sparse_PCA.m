@@ -19,7 +19,7 @@ function [U1,V1,U2,V2] = Sparse_PCA(X, lambda, K, iter1, iter2, tol1, tol2)
 % NOTE: in both outputs U are the principle components and V are the loadings.  
 
 [n,p] = size(X);
-[U,S,V] = fsvd(X);
+[U,S,V] = fsvd(X,K);
 
 
 %% U1 and V1 (standard sparse PCA)
