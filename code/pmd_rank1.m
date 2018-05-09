@@ -4,9 +4,21 @@ function [u,v,d] = pmd_rank1(X,c)
 %  "A penalized matrix decomposition, with applications 
 %   to sparse PCA and CCA," Biostatistics, 10(3), pp.515-534.
 %
+%  This is the PCA implementation. The CCA (more general) implementation of this 
+%  algorithm is available in https://github.com/idnavid/sparse_CCA
+%
 % Inputs:
 %       X: data matrix
 %       c: sparcity coefficient (c closer to zero is stricter)
+% 
+% Outputs:
+%       u, v: eigenvectors
+%       d: eigenvalue
+%
+%
+% Navid Shokouhi, 
+% 2018
+
 [n1,n2] = size(X);
 Delta_steps = 0.001; % increments used to threshold u(or v) so L1 const. is satisfied
 epsilon = 1e-6; % stopping criterion

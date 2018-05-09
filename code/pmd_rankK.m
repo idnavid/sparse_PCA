@@ -1,10 +1,22 @@
 function [Wx,Wy] = pmd_rankK(X,Y,K,c)
-% Sparse rank-K approximation of XY'.
+% Deflation procedure for sparse rank-K approximation of XY'.
 % Inputs:
 %       X:          NxM matrix, N: dimension of data, M: number of samples
 %       Y:          NxM matrix
 %       K:          number of canonical components
 %       c:          sparsity coefficient (c closer to zero is stricter)
+% 
+% NOTE: This is a generic implementation that also applies to CCA. In the 
+%       case of PCA, X = Y. 
+%
+% Outputs:
+%       Wx: collection of principal loading vectors
+%
+% The implementation of this algorithm for the generic CCA case is available
+% here: https://github.com/idnavid/sparse_CCA
+%
+% Navid Shokouhi, 
+% 2018
 
 [Nx,Mx] = size(X);
 [Ny,My] = size(Y);

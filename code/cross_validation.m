@@ -1,9 +1,10 @@
 function lamda = cross_validation(X, n_samples, n_components, Kfold_value,func)
-% This function finds optimal the sparsity parameter lambda.
-% You'll have to specify the function.
+% This function finds the optimal sparsity parameter lambda for sparse PCA using 
+% some training data X. 
+% You'll have to specify the sparse PCA function.
 %
 % Inputs :
-%       X:              data set  [n x p], n: samples, p : dimension
+%       X:              data set  of size [n,p], where n: samples, p: dimension
 %       n_samples:      Number of samples, where n = n_samples (This is to make
 %                       sure were using the right axis.
 %       n_components:   number of principal components
@@ -13,17 +14,20 @@ function lamda = cross_validation(X, n_samples, n_components, Kfold_value,func)
 %
 %  Outputs:
 %     	lambda:         lambda with minimum reconstruction error.
-
-if size(X,1)~=n_samples
-    error('rows should correspond to number of samples');
-end
+%
+% Navid Shokouhi, 
+% 2018
 
 [n,p] = size(X);
+if n~=n_samples
+    error('rows should correspond to number of samples. Try transposing X.');
+end
 
-% Create cross validation partition on T observations
+
+% Create cross validation partition on n observations
 cv_partitions = cvpartition(n,'KFold',Kfold_value); 
 
-% Different algorithms use different scales of values for lambda
+% Different sparse PCA algorithms use different scales/ranges of values for lambda
 switch func
     case 'spca'
         lambda_k = 5:5:25;
@@ -53,10 +57,9 @@ plot(mean(cv_err_mat,1))
 lamda = lambda_k(min_idx);
 end
 
+
 function err = sparsepca_algorithm(X,X_test,params,func)
-% calculate reconstruction error for each sparse PCA algorithm
-% 
-% 
+% calculate reconstruction error for each sparse PCA algorithm 
 switch func
     case 'spca'
         % For spca, lambda is proportional to the number of non-zero
@@ -81,10 +84,12 @@ end
 function [params] = set_params(n_components,p)
 % Sets all of the parameters (except lambda) for all of the sparse PCA
 % algorithms at once.
+% This is a helper function to keep the main cross-validation tidy. 
 %
 % Inputs:
 %   n_components: number of principal components
 %   p:            data dimension
+
 
 % struct of SPCA parameters (Zou etal. 2006)
 params.n_components_spca  = n_components;

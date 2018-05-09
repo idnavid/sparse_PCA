@@ -9,8 +9,10 @@ function eta = orthogonality(U)
 % Outputs: 
 %       eta: level of non-orthogonality ||U^TU - I_r||*sqrt(1/r). 
 %            the coefficient is multiplied by sqrt(1/r) to:
-%               - remove the effect of r by dividing
-
+%              - remove the effect of r by dividing
+%
+% Navid Shokouhi,
+% 2018
 
 U = U/norm(U); 
 [p,r] = size(U);
