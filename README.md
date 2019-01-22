@@ -17,6 +17,8 @@ of a feature in the dimension reduction process. However, let's say we want to r
 will select the same features; in other words, they won't have the same *sparsity pattern*. The table below shows an example for 
 simulated data. 
 
+<img src="https://github.com/idnavid/sparse_PCA/blob/master/figures/spca_example.png" alt="drawing" width="400"/>
+
 Our proposed method calculates principal loadings while preserving sparsity patterns. 
 
 ## Citations
